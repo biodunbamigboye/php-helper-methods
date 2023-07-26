@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-
 use Biodun\PhpHelperMethods\Tests\TestCase;
 
 class ExampleTest extends TestCase

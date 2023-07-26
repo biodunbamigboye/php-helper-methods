@@ -8,7 +8,7 @@ use Biodun\PhpHelperMethods\Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
-    public function test_that_true_is_true()
+    public function testExample()
     {
         $this->assertTrue(true);
     }

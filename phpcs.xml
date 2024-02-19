@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ruleset name="rule-helper-for-laravel">
+<ruleset name="php-helper-methods">
     <arg name="colors"/>
 
     <file>./src</file>

@@ -1,0 +1,38 @@
+{
+    "name": "biodun/php-helper-methods",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Biodun\\PhpHelperMethods\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Biodun\\PhpHelperMethods\\Tests\\": "tests/"
+        },
+        "files": [
+            "src/Helpers/helpers.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Biodun Bamigboye",
+            "email": "bamigboyebiodun@gmail.com"
+        } ,
+        {
+            "name": "Moffat Munene",
+            "email": "moffmu@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^8.0"
+    },
+    "require-dev": {
+        "ext-json": "*",
+        "orchestra/testbench": "^8.0",
+        "phpunit/phpunit": "^9.6",
+        "squizlabs/php_codesniffer": "^3.6"
+    }
+}

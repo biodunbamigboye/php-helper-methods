@@ -3,6 +3,8 @@
 /vendor
 /*.cache
 composer.lock
-
+composer.phar
+.phpunit.cache
+.phpunit.result.cache
 /vendor/
 .idea/

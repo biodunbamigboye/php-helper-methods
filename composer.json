@@ -10,10 +10,7 @@
     "autoload-dev": {
         "psr-4": {
             "Biodun\\PhpHelperMethods\\Tests\\": "tests/"
-        },
-        "files": [
-            "src/Helpers/helpers.php"
-        ]
+        }
     },
     "authors": [
         {

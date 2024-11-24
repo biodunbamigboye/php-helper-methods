@@ -1,6 +1,7 @@
 <?php
+
 declare(strict_types=1);
-    
+
 namespace Biodun\PhpHelperMethods\Helpers;
 
 use DateInterval;
@@ -25,9 +26,9 @@ class Helper
         try {
             $date = new DateTime(timezone: $timeZone);
             if ($numberOfDays < 0) {
-                $date->sub(new DateInterval('P'.abs($numberOfDays).'D'));
+                $date->sub(new DateInterval('P' . abs($numberOfDays) . 'D'));
             } else {
-                $date->add(new DateInterval('P'.$numberOfDays.'D'));
+                $date->add(new DateInterval('P' . $numberOfDays . 'D'));
             }
 
             return $date->format($format);

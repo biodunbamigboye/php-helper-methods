@@ -7,21 +7,21 @@ use Biodun\PhpHelperMethods\Helpers\Helper;
 
 class AddDaysTest extends TestCase
 {
-    public function testPositiveDaysAddCorrectly()
+    public function testPositiveDaysAddCorrectly(): void
     {
         $daysToAdd = 5;
         $expectedDate = date('Y-m-d', strtotime('+' . $daysToAdd . ' days'));
         $this->assertEquals($expectedDate, Helper::addDays($daysToAdd));
     }
 
-    public function testZeroDaysReturnsSameDate()
+    public function testZeroDaysReturnsSameDate(): void
     {
         $daysToAdd = 0;
         $expectedDate = date('Y-m-d', strtotime('+' . $daysToAdd . ' days'));
         $this->assertEquals($expectedDate, Helper::addDays($daysToAdd));
     }
 
-    public function testNegativeDaysWorkCorrectly()
+    public function testNegativeDaysWorkCorrectly(): void
     {
         $daysToAdd = -5;
         $expectedDate = date('Y-m-d', strtotime($daysToAdd . ' days'));

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Biodun\PhpHelperMethods\Tests;
 
-abstract class TestCase extends \Orchestra\Testbench\TestCase
+use PHPUnit\Framework\TestCase as BaseTestCase;
+
+abstract class TestCase extends BaseTestCase
 {
     //
 }

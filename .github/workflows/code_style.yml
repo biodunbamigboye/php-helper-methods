@@ -3,41 +3,68 @@ on: push
 
 jobs:
   tests:
-    name: Code style and tests
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        php: [8.1, 8.2]
-        stability: ["--prefer-lowest", "--prefer-stable"]
+        fail-fast: true
+        matrix:
+          php: [ 8.1, 8.2, 8.3 ]
+          stability: [ prefer-lowest, prefer-stable ]
+          include:
+            - php: 8.1
+              stability: prefer-lowest
+              phpunit: 10
+            - php: 8.1
+              stability: prefer-stable
+              phpunit: 10
+            - php: 8.2
+              stability: prefer-lowest
+              phpunit: 10
+            - php: 8.2
+              stability: prefer-stable
+              phpunit: 10
+            - php: 8.3
+              stability: prefer-lowest
+              phpunit: 11
+            - php: 8.3
+              stability: prefer-stable
+              phpunit: 11
+    name: PHP ${{ matrix.php }} - ${{ matrix.stability }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          cache_dir=$(composer config cache-files-dir)
+          echo "dir=$cache_dir" >> $GITHUB_ENV
+
+      - name: Cache Dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.dir }}
+          key: ${{ runner.os }}-composer-php-${{ matrix.php }}-${{ hashFiles('**/composer.json') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: mbstring, dom, fileinfo
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, gd
           coverage: none
 
-      - name: Get composer cache directory
-        id: composer-cache
-        run: |
-          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - name: Install dependencies
+        run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
-      - name: Cache composer dependencies
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-${{ matrix.php }}-${{ matrix.strategy }}-composer-${{ hashFiles('**/composer.json') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.php }}-${{ matrix.strategy }}-composer-
+      - name: Require specific versions of packages
+        run: composer update phpunit/phpunit:^${{ matrix.phpunit }} --dev -W
 
-      - name: Install Composer dependencies
-        run: composer update --no-interaction --no-progress --optimize-autoloader --prefer-dist ${{ matrix.stability }}
-
-      - name: Check code style
+      - name: Lint code
         run: composer lint
 
-      - name: Run tests
+      - name: Run PHPStan
+        run: composer phpstan
+
+      - name: Execute tests
         run: composer test

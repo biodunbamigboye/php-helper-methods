@@ -17,9 +17,9 @@ function addDays(int $numberOfDays, DateTimeZone $timeZone = null, string $forma
     try {
         $date = new DateTime(timezone: $timeZone);
         if ($numberOfDays < 0) {
-            $date->sub(new DateInterval('P'.abs($numberOfDays).'D'));
+            $date->sub(new DateInterval('P' . abs($numberOfDays) . 'D'));
         } else {
-            $date->add(new DateInterval('P'.$numberOfDays.'D'));
+            $date->add(new DateInterval('P' . $numberOfDays . 'D'));
         }
 
         return $date->format($format);

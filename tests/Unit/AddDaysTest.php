@@ -23,7 +23,7 @@ class AddDaysTest extends TestCase
     public function testNegativeDaysWorkCorrectly()
     {
         $daysToAdd = -5;
-        $expectedDate = date('Y-m-d', strtotime('-'.$daysToAdd.' days'));
+        $expectedDate = date('Y-m-d', strtotime($daysToAdd.' days'));
         $this->assertEquals($expectedDate, addDays($daysToAdd));
     }
 }
